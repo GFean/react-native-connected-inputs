@@ -1,0 +1,45 @@
+{
+  "name": "react-native-connected-inputs",
+  "version": "0.5.3",
+  "description": "A React Native hook and HOC to connect inputs with navigation and submission handling.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "GFean",
+    "url": "https://github.com/GFean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GFean/react-native-connected-inputs"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "input",
+    "form",
+    "focus",
+    "navigation",
+    "hook",
+    "hoc",
+    "typescript",
+    "keyboard",
+    "auto-focus",
+    "connected-inputs"
+  ],
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.60.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.67.0",
+    "typescript": "^4.4.4"
+  }
+}
