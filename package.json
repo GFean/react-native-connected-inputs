@@ -1,6 +1,6 @@
 {
   "name": "react-native-connected-inputs",
-  "version": "0.5.3",
+  "version": "1.0.0",
   "description": "A React Native hook and HOC to connect inputs with navigation and submission handling.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -30,7 +30,18 @@
     "typescript",
     "keyboard",
     "auto-focus",
-    "connected-inputs"
+    "connected-inputs",
+    "forms",
+    "text-input",
+    "a11y",
+    "accessibility",
+    "form control",
+    "form navigation",
+    "form submission",
+    "tools",
+    "utilities",
+    "react-native keyboard",
+    "refs"
   ],
   "license": "ISC",
   "peerDependencies": {
