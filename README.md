@@ -1,4 +1,4 @@
-# @gfean/react-native-connected-inputs
+# react-native-connected-inputs
 
 <div>
   <img src="gifs/demogif.gif" alt="Gif demo" width="400" />
@@ -24,11 +24,11 @@ It uses base React Native components and is compatible with any kind of ```TextI
 Install the package using npm or yarn:
 
 ```bash
-npm install @gfean/react-native-connected-inputs
+npm install react-native-connected-inputs
 ```
 or
 ```bash
-yarn add @gfean/react-native-connected-inputs
+yarn add react-native-connected-inputs
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ The ```useConnectedInputs``` hook allows you to connect multiple inputs, automat
 ```jsx
 import React from 'react';
 import { SafeAreaView, TextInput, StyleSheet, Alert } from 'react-native';
-import { useConnectedInputs } from '@gfean/react-native-connected-inputs';
+import { useConnectedInputs } from 'react-native-connected-inputs';
 
 const App: React.FC = () => {
   const handleFormSubmit = () => {
@@ -80,7 +80,7 @@ export default App;
 ```jsx
 import React from 'react';
 import { SafeAreaView, TextInput, StyleSheet, Alert, Text } from 'react-native';
-import { ConnectedInputs } from '@gfean/react-native-connected-inputs';
+import { ConnectedInputs } from 'react-native-connected-inputs';
 
 const App: React.FC = () => {
   const handleFormSubmit = () => {
@@ -128,7 +128,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import RegistrationForm from './RegistrationForm';
-import { ConnectedInputsProvider } from '@gfean/react-native-connected-inputs';
+import { ConnectedInputsProvider } from 'react-native-connected-inputs';
 
 
 const RegistrationScreen: React.FC = () => {
@@ -161,7 +161,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
 import PersonalDetails from './PersonalDetails';
 import AccountDetails from './AccountDetails';
-import { useConnectedInputsContext } from '@gfean/react-native-connected-inputs';
+import { useConnectedInputsContext } from 'react-native-connected-inputs';
 
 
 const RegistrationForm: React.FC = () => {
@@ -201,7 +201,7 @@ PersonalDetails Component
 ```jsx
 import React from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
-import { useConnectedInputsContext } from '@gfean/react-native-connected-inputs';
+import { useConnectedInputsContext } from 'react-native-connected-inputs';
 
 
 const PersonalDetails: React.FC = () => {
@@ -235,7 +235,7 @@ AccountDetails Component
 ```jsx
 import React from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
-import { useConnectedInputsContext } from '@gfean/react-native-connected-inputs';
+import { useConnectedInputsContext } from 'react-native-connected-inputs';
 
 
 const AccountDetails: React.FC = () => {
