@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { TextInput } from "react-native";
+import { ReturnKeyTypeOptions, TextInput } from "react-native";
 
 export interface ConnectedInputsProps {
     children: ReactElement<any>[];
@@ -10,3 +10,14 @@ export interface ConnectedInput {
     ref: TextInput | null;
     onSubmitEditing: () => void;
   }
+
+export interface ConnectedInputsContextType {
+  registerInput: (order: number, input: TextInput | null) => void;
+  connectInput: (order: number) => {
+    ref: (input: TextInput | null) => void;
+    onSubmitEditing: () => void;
+    returnKeyType: ReturnKeyTypeOptions;
+    blurOnSubmit: boolean;
+  };
+  handleSubmit: (onSubmit: () => void) => void;
+}
