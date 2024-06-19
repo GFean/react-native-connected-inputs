@@ -1,4 +1,4 @@
-declare module 'react-native-connected-inputs' {
+declare module '@gfean/react-native-connected-inputs' {
   import { TextInput, ReturnKeyTypeOptions } from 'react-native';
   import { ReactElement, ReactNode } from 'react';
 

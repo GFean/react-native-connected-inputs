@@ -1,4 +1,4 @@
-# react-native-connected-inputs
+# @gfean/react-native-connected-inputs
 
 <div>
   <img src="gifs/demogif.gif" alt="Gif demo" width="400" />
@@ -24,11 +24,11 @@ It uses base React Native components and is compatible with any kind of ```TextI
 Install the package using npm or yarn:
 
 ```bash
-npm install react-native-connected-inputs
+npm install @gfean/react-native-connected-inputs
 ```
 or
 ```bash
-yarn add react-native-connected-inputs
+yarn add @gfean/react-native-connected-inputs
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ The ```useConnectedInputs``` hook allows you to connect multiple inputs, automat
 ```jsx
 import React from 'react';
 import { SafeAreaView, TextInput, StyleSheet, Alert } from 'react-native';
-import { useConnectedInputs } from 'react-native-connected-inputs';
+import { useConnectedInputs } from '@gfean/react-native-connected-inputs';
 
 const App: React.FC = () => {
   const handleFormSubmit = () => {
@@ -80,7 +80,7 @@ export default App;
 ```jsx
 import React from 'react';
 import { SafeAreaView, TextInput, StyleSheet, Alert, Text } from 'react-native';
-import { ConnectedInputs } from 'react-native-connected-inputs';
+import { ConnectedInputs } from '@gfean/react-native-connected-inputs';
 
 const App: React.FC = () => {
   const handleFormSubmit = () => {
