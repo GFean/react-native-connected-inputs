@@ -1,14 +1,23 @@
 {
   "name": "react-native-connected-inputs",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "A React Native hook and HOC to connect inputs with navigation and submission handling.",
   "main": "./dist/index.js",
+  "react-native": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build",
+    "build": "node ./node_modules/typescript/bin/tsc",
+    "prepare": "npm run build && husky",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:typecheck": "node ./node_modules/typescript/bin/tsc --noEmit -p tsconfig.test.json",
+    "test": "npm run build && npm run test:typecheck && node ./scripts/run-node-tests.mjs",
+    "test:coverage": "npm run build && npm run test:typecheck && c8 node ./scripts/run-node-tests.mjs"
   },
   "author": {
     "name": "GFean",
@@ -49,8 +58,29 @@
     "react-native": ">=0.60.0"
   },
   "devDependencies": {
+    "@types/node": "^24.12.2",
     "@types/react": "^18.0.0",
     "@types/react-native": "^0.67.0",
+    "@types/react-test-renderer": "^18.3.1",
+    "c8": "^11.0.0",
+    "husky": "^9.1.7",
+    "react": "^18.2.0",
+    "react-test-renderer": "^18.2.0",
+    "tsx": "^4.21.0",
     "typescript": "^4.4.4"
+  },
+  "c8": {
+    "all": true,
+    "exclude": [
+      "src/types.ts"
+    ],
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "reporter": [
+      "text",
+      "text-summary"
+    ]
   }
 }

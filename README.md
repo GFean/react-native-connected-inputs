@@ -4,19 +4,19 @@
   <img src="gifs/demogif.gif" alt="Gif demo" width="400" />
 </div>
 
-```@gfean/react-native-connected-input``` lets you connect your text inputs with each other in the react-native app.
-The package contains a react native custom hook and a HOC to manage smooth navigation thorugh inputs and submission handling.
-This package is pure and has no peer dependencies, making it lightweight and easy to integrate into any React Native project. 
-It uses base React Native components and is compatible with any kind of ```TextInput``` which accepts refs.
+`react-native-connected-inputs` lets you connect your text inputs with each other in a React Native app.
+The package contains a React Native custom hook, a wrapper component, and a context API to manage smooth navigation through inputs and submission handling.
+The package has no runtime dependencies beyond its React and React Native peer dependencies, making it lightweight and easy to integrate into existing forms.
+The hook and context helpers work with any ref-forwarding input that exposes `focus()` and accepts the standard `onSubmitEditing`, `returnKeyType`, and `blurOnSubmit` props.
 
 ## Features
 
 * Auto Navigation: Automatically navigates to the next input upon submission.
 * Flexible Submission Handling: Execute custom logic when the last input is submitted.
-* Pure Package: No additional peer dependencies.
+* Pure Package: No additional runtime dependencies beyond React and React Native.
 * Lightweight: Minimal impact on your bundle size.
 * Base Components: Utilizes base React Native components.
-* Compatibility: Works with any type of input component.
+* Compatibility: Hook/context APIs work with native `TextInput`s and ref-forwarding third-party inputs. `ConnectedInputs` auto-detects native `TextInput`s and can support custom inputs via `isInput`.
 
 
 ## Installation
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 export default App;
 
 ```
-### HOC: ConnectedInputs
+### Wrapper: ConnectedInputs
 ```jsx
 import React from 'react';
 import { SafeAreaView, TextInput, StyleSheet, Alert, Text } from 'react-native';
@@ -118,8 +118,22 @@ export default App;
 
 ```
 
+`ConnectedInputs` walks nested children and only decorates inputs that match the predicate. If you use a custom input component, pass the optional `isInput` prop so the wrapper knows which elements should participate in focus navigation.
+
+```jsx
+<ConnectedInputs
+  onSubmit={handleFormSubmit}
+  isInput={(child) => child.type === MyTextInput}
+>
+  <MyTextInput placeholder="First Input" />
+  <MyTextInput placeholder="Second Input" />
+</ConnectedInputs>
+```
+
+`MyTextInput` should forward a ref whose instance exposes `focus()`.
+
 ### useConnectedInputsContext
-Similarly to ```useConnectedInputs``` hook and ```ConnectedInputs``` HOC,  ```useConnectedInputsContext``` hook provides a way to manage multiple TextInput components in a React Native application, ensuring seamless navigation and submission handling. **It is designed to manage the connection of TextInput components across different parts of your component tree**, ensuring that focus navigation and submission logic work seamlessly regardless of where the inputs are located.
+Similarly to ```useConnectedInputs``` and ```ConnectedInputs```, ```useConnectedInputsContext``` provides a way to manage multiple inputs across different parts of your component tree, ensuring seamless navigation and submission handling even when the fields do not live in one component.
 
 ### Example usage
  RegistrationScreen Component:
@@ -266,7 +280,7 @@ export default AccountDetails;
 
 ```
 Example usage above shows how you can use ```useConnectedInputsContext``` to manage inputs navigation across different parts of your component tree.
-Keep in mind, that this needs ```ConnectedInputsProvider``` to work. **Do not** wrap your whole application inside this provider to avoid the unexpected behaviour, use it as a wrapper to the specific form component or screen.
+Keep in mind that this needs ```ConnectedInputsProvider``` to work. Prefer scoping the provider to the specific form or screen that needs shared input navigation rather than wrapping your whole application.
 
 ## API
 
@@ -278,13 +292,21 @@ A hook to manage connected inputs.
 #### Returns
 A function to connect an input, which takes the order of the input as an argument and returns props to be spread onto the input.
 
+`connectInput(order, options?)`
+
+* `order`: Numeric input order. Orders do not need to be contiguous; sparse and 1-based orders are supported.
+* `options.ref` (optional): Existing ref to compose with the internal connected-input ref.
+* `options.onSubmitEditing` (optional): Existing submit handler to compose with the internal navigation handler.
+* Returned props: `ref`, `onSubmitEditing`, `returnKeyType`, and `blurOnSubmit`.
+
 ## ConnectedInputs
-A higher-order component to manage connected inputs.
+A wrapper component to manage connected inputs.
 #### Props
 * ```children```: The input components to be connected.
 * ```onSubmit``` (optional): A callback function to be called when the last input is submitted.
+* ```isInput``` (optional): Predicate used to identify custom input components when you are not rendering native `TextInput` elements directly.
 
-You can wrap this around other elements than TextInputs as well, as given in the example above - this will type check for TextInput component and won't create additional refs for any other type of components.
+By default it only auto-detects direct native `TextInput` elements. Other elements are left untouched unless `isInput` returns `true`.
 
 
 ## ConnectedInputsProvider
@@ -294,14 +316,14 @@ A context provider component to manage the state and logic for connected inputs 
 A hook to access the connected inputs context. This hook provides methods for registering inputs, connecting inputs, and handling form submission. It must be used within a ```ConnectedInputsProvider```.
 
 #### Returns 
-* ```registerInput```: A function to register an input.
-* ```connectInput```: A function to connect an input, which takes the order of the input as an argument and returns props to be spread onto the input.
-* ```handleSubmit```: A function to set the submission handler for the form.
+* ```registerInput```: A function to register or unregister an input manually. This is useful when the input lives in another abstraction and you need to manage its lifecycle yourself.
+* ```connectInput```: A function to connect an input, which takes the order of the input and optional composition options and returns props to be spread onto the input.
+* ```handleSubmit```: A function to set or clear the submission handler for the form.
 
 
 
 ## Note
-This package will only help you to connect TextInputs, manage navigation and submission handling as well as the ```returnKeyType```. This is not responsible for keyboard avoiding views, but it works well with different community packages which manage keyboards. 
+This package manages input navigation, submission handling, and the ```returnKeyType``` / ```blurOnSubmit``` props. Native `TextInput` elements work out of the box, and the hook/context APIs also support custom ref-forwarding inputs. It does not manage keyboard avoiding views, but it works well alongside packages that do.
 
 ## Contributing
 Contributions are welcome! If you find any issues or would like to suggest improvements, please create a new issue or submit a pull request.
@@ -310,4 +332,4 @@ Contributions are welcome! If you find any issues or would like to suggest impro
 This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
 
 ## Dependencies
-No dependencies.
+No runtime dependencies beyond the `react` and `react-native` peer dependencies.

@@ -1,5 +1,7 @@
 node_modules/
 dist/
+tests-dist/
+coverage/
 npm-debug.*
 *.jks
 *.p8

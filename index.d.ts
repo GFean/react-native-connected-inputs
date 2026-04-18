@@ -1,37 +1,42 @@
 declare module 'react-native-connected-inputs' {
-  import { TextInput, ReturnKeyTypeOptions } from 'react-native';
-  import { ReactElement, ReactNode } from 'react';
+  import { ReactElement, ReactNode, Ref } from 'react';
+  import { ReturnKeyTypeOptions } from 'react-native';
 
-  interface ConnectedInput {
-    ref: TextInput | null;
-    order: number;
+  export interface FocusableInput {
+    focus: () => void;
+    blur?: () => void;
+  }
+
+  export type SubmitEditingHandler = (...args: unknown[]) => void;
+
+  export interface ConnectedInputOptions {
+    ref?: Ref<FocusableInput>;
+    onSubmitEditing?: SubmitEditingHandler;
+  }
+
+  export interface ConnectedInputProps {
+    ref: (input: FocusableInput | null) => void;
+    onSubmitEditing: SubmitEditingHandler;
+    returnKeyType: ReturnKeyTypeOptions;
+    blurOnSubmit: boolean;
   }
 
   export function useConnectedInputs(
     onSubmit?: () => void
-  ): (order: number) => {
-    ref: (input: TextInput | null) => void;
-    onSubmitEditing: () => void;
-    returnKeyType: ReturnKeyTypeOptions;
-    blurOnSubmit: boolean;
-  };
+  ): (order: number, options?: ConnectedInputOptions) => ConnectedInputProps;
 
-  interface ConnectedInputsProps {
-    children: ReactElement<any>[];
+  export interface ConnectedInputsProps {
+    children?: ReactNode;
+    isInput?: (child: ReactElement) => boolean;
     onSubmit?: () => void;
   }
 
   export const ConnectedInputs: React.FC<ConnectedInputsProps>;
 
-  interface ConnectedInputsContextType {
-    registerInput: (order: number, input: TextInput | null) => void;
-    connectInput: (order: number) => {
-      ref: (input: TextInput | null) => void;
-      onSubmitEditing: () => void;
-      returnKeyType: ReturnKeyTypeOptions;
-      blurOnSubmit: boolean;
-    };
-    handleSubmit: (onSubmit: () => void) => void;
+  export interface ConnectedInputsContextType {
+    registerInput: (order: number, input: FocusableInput | null) => void;
+    connectInput: (order: number, options?: ConnectedInputOptions) => ConnectedInputProps;
+    handleSubmit: (onSubmit?: () => void) => void;
   }
 
   export const ConnectedInputsProvider: React.FC<{ children: ReactNode }>;

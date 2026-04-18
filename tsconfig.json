@@ -9,7 +9,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react"
+    "jsx": "react",
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["react", "react-native"]
   },
   "include": ["src"]
 }
